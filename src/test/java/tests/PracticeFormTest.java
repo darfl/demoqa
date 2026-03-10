@@ -1,6 +1,6 @@
-import com.codeborne.selenide.Configuration;
+package tests;
+
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -8,19 +8,12 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class PracticeFormTest {
+public class PracticeFormTest extends TestBase {
 
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = true;
-    }
 
     @Test
     void successfulRegistrationTest() {
-        String userName = "egor";
+        String userName = "alex";
 
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
@@ -28,9 +21,9 @@ public class PracticeFormTest {
         Selenide.executeJavaScript("$('footer').remove()");
 
 
-        $("#firstName").setValue("userName");
+        $("#firstName").setValue(userName);
         $("#lastName").setValue("petrov");
-        $("#userEmail").setValue("egor.petrov@gmail.com");
+        $("#userEmail").setValue("alex.petrov@gmail.com");
 
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("7123456789");
@@ -64,7 +57,7 @@ public class PracticeFormTest {
 
         $(".modal-dialog").should(appear);
         $("#example-modal-sizes-title-lg").shouldHave(exactText("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text(userName), text("petrov"), text("egor.petrov@gmail.com"), text("7123456789"));
+        $(".table-responsive").shouldHave(text(userName), text("petrov"), text("alex.petrov@gmail.com"), text("7123456789"));
 
     }
 }
