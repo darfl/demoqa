@@ -2,12 +2,15 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import enums.ResultTableEnums;
 import pages.components.CalendarComponent;
+import pages.components.ResultTableComponent;
+
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
 
@@ -22,9 +25,9 @@ public class RegistrationPage {
             hobbiesWrapper = $("#hobbiesWrapper"),
             uploadPicture = $("#uploadPicture"),
             currentAddress = $("#currentAddress"),
-            stateList = $("#state"),
+            stateList = $("#react-select-3-input"),
             stateWrapper = $("#stateCity-wrapper"),
-            cityList = $("#city"),
+            cityList = $("#react-select-4-input"),
             cityWrapper = $("#stateCity-wrapper"),
             visibleWindow = $(".modal-dialog"),
             visibleHeader = $("#example-modal-sizes-title-lg"),
@@ -32,12 +35,13 @@ public class RegistrationPage {
 
 
     CalendarComponent calendarComponent = new CalendarComponent();
+    ResultTableComponent resultTableComponent = new ResultTableComponent();
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         //Selenide.executeJavaScript("$('#fisedban').remove()");
-        //Selenide.executeJavaScript("$('footer').remove()");
+        Selenide.executeJavaScript("arguments[0].remove();", $("footer"));
         return this;
     }
 
@@ -94,31 +98,37 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setState(String value) {
-        stateList.click();
-        stateWrapper.$(byText(value)).click();;
+        stateList.setValue(value).pressEnter();
         return this;
     }
 
     public RegistrationPage setCity(String value) {
-        cityList.click();
-        cityWrapper.$(byText(value)).click();;
+        cityList.setValue(value).pressEnter();
         return this;
     }
 
-    public RegistrationPage setButton() {
+    public RegistrationPage clickSubmitButton() {
+        //submitButton.scrollTo();
+        actions().moveToElement($(submitButton)).perform();
+
         submitButton.click();
         return this;
     }
 
-    public RegistrationPage appearModalWindow(String value) {
-        visibleWindow.should(appear);
-        visibleHeader.shouldHave(exactText(value));
+
+    public RegistrationPage checkResultTitle() {
+        resultTableComponent.checkTitle();
         return this;
     }
 
-    public RegistrationPage checkResult(String key, String value) {
-        resultTable.$(byText(key)).parent()
-                .shouldHave(text(value));
+
+    public RegistrationPage checkResultTable(Map<ResultTableEnums, String> results) {
+        results.forEach((key, value) -> resultTableComponent.checkTable(key, value));
+        return this;
+    }
+
+    public RegistrationPage checkTitleMissing() {
+        resultTableComponent.checkTitleMissing() ;
         return this;
     }
 }

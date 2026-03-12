@@ -57,7 +57,10 @@ public class PracticeFormTest extends TestBase {
 
         $(".modal-dialog").should(appear);
         $("#example-modal-sizes-title-lg").shouldHave(exactText("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text(userName), text("petrov"), text("alex.petrov@gmail.com"), text("7123456789"));
+        $(".table-responsive").shouldHave(text(userName),
+                text("petrov"),
+                text("alex.petrov@gmail.com"),
+                text("7123456789"));
 
     }
 }
