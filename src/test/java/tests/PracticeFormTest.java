@@ -1,67 +1,75 @@
 package tests;
 
-import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.Test;
+import utils.TestData;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import java.util.Map;
+
+import static enums.ResultTableEnums.*;
+
 
 public class PracticeFormTest extends TestBase {
-
+    TestData testData = new TestData();
 
     @Test
     void successfulRegistrationTest() {
-        String userName = "alex";
+        registrationPage.openPage();
+        registrationPage
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setEmail(testData.userEmail)
+                .setGender(testData.gender)
+                .setUserNumber(testData.phoneNumber)
+                .setDateOfBirth(testData.day, testData.month, testData.year)
+                .setSubjectsInput(testData.subjects)
+                .setHobbies(testData.hobbies)
+                .uploadPicture(testData.uploadFile)
+                .setCurrentAddress(testData.streetAddress)
+                .setState(testData.state)
+                .setCity(testData.city)
+                .clickSubmitButton()
 
-        open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        Selenide.executeJavaScript("$('#fisedban').remove()");
-        Selenide.executeJavaScript("$('footer').remove()");
+                .checkResultTitle()
+                .checkResultTable(Map.of(
+                        STUDENT_NAME, testData.firstName + " " + testData.lastName,
+                        STUDENT_EMAIL, testData.userEmail,
+                        GENDER, testData.gender,
+                        MOBILE, testData.phoneNumber,
+                        DATE_OF_BIRTH, testData.day + " " + testData.month + "," + testData.year,
+                        SUBJECTS, testData.subjects,
+                        HOBBIES, testData.hobbies,
+                        PICTURE, testData.uploadFile,
+                        ADDRESS, testData.streetAddress,
+                        STATE_AND_CITY, testData.state + " " + testData.city));
+    }
 
+    @Test
+    void requiredFieldsFormTest() {
+        registrationPage.openPage();
+        registrationPage
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setGender(testData.gender)
+                .setUserNumber(testData.phoneNumber)
+                .clickSubmitButton()
 
-        $("#firstName").setValue(userName);
-        $("#lastName").setValue("petrov");
-        $("#userEmail").setValue("alex.petrov@gmail.com");
+                .checkResultTitle()
+                .checkResultTable(Map.of(
+                        STUDENT_NAME, testData.firstName + " " + testData.lastName,
+                        GENDER, testData.gender,
+                        MOBILE, testData.phoneNumber));
+    }
 
-        $("#genterWrapper").$(byText("Male")).click();
-        $("#userNumber").setValue("7123456789");
+    @Test
+    void invalidPhoneRegistrationTest() {
+        registrationPage.openPage();
+        registrationPage
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setGender(testData.gender)
+                .setUserNumber("71234567md")
+                .clickSubmitButton()
 
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-select").selectOptionByValue("2008");
-        $(".react-datepicker__month-select").selectOption("July");
-        $("react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
-
-
-        $("#subjectsInput").setValue("Maths").pressEnter();
-
-
-        $("#submit").scrollTo();
-        $("#hobbiesWrapper").$(byText("Reading")).click();
-
-
-        $("#uploadPicture").uploadFromClasspath("img/test1.jpg");
-
-        $("#currentAddress").setValue("Pushkina str 2");
-
-
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
-
-
-        $(".modal-dialog").should(appear);
-        $("#example-modal-sizes-title-lg").shouldHave(exactText("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text(userName),
-                text("petrov"),
-                text("alex.petrov@gmail.com"),
-                text("7123456789"));
-
+                .checkTitleMissing();
     }
 }
-
