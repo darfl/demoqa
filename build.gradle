@@ -1,17 +1,35 @@
 plugins {
     id 'java-library'
+    id 'io.qameta.allure' version '2.12.0' //https://plugins.gradle.org/plugin/io.qameta.allure
 }
 
 repositories {
     mavenCentral()
 }
 
+def allureVersion = "2.27.0" //https://github.com/allure-framework/allure2 смотреть RELEASE VERSION
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
+
 dependencies {
     testImplementation(
-            "com.codeborne:selenide:6.19.1",
-            "org.junit.jupiter:junit-jupiter:5.10.0",
-            'org.slf4j:slf4j-simple:2.0.7',
-            'com.github.javafaker:javafaker:1.0.2'
+            "com.codeborne:selenide:7.2.3", //https://mvnrepository.com/artifact/com.codeborne/selenide
+            "org.junit.jupiter:junit-jupiter:5.10.0", //https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/versions
+            'org.slf4j:slf4j-simple:2.0.7', //SLF4J (Simple Logging Facade for Java)
+            'com.github.javafaker:javafaker:1.0.2', //https://github.com/dius/java-faker
+            'io.qameta.allure:allure-selenide:$allureVersion'//https://mvnrepository.com/artifact/io.qameta.allure/allure-selenide
     )
 }
 

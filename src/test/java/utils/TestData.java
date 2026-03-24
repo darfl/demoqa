@@ -2,6 +2,7 @@ package utils;
 
 import com.github.javafaker.Faker;
 
+import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,6 +18,8 @@ public class TestData {
             userEmail = faker.internet().emailAddress(),
             gender = getRandomGender(),
             phoneNumber = getRandomPhoneNumber(10),
+            invalidPhoneNumber = getRandomPhoneNumber(8),
+            randomString = getRandomString(2),
             day = getRandomDay(),
             month = getRandomMonth(),
             year = getRandomYear(),
@@ -27,7 +30,7 @@ public class TestData {
             state = getRandomState(),
             city = getRandomCity();
 
-    /*public String getRandomString(int len) {
+    public String getRandomString(int len) {
         //String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         String AB = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         SecureRandom rnd = new SecureRandom();
@@ -35,7 +38,7 @@ public class TestData {
         for (int i = 0; i < len; i++)
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         return sb.toString();
-    }*/
+    }
 
      /*public String getRandomEmail() {
         return getRandomString(10) + "@gmail.com";
