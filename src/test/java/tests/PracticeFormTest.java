@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import utils.TestData;
 
@@ -7,12 +8,14 @@ import java.util.Map;
 
 import static enums.ResultTableEnums.*;
 
-
+@DisplayName("Регистрация")
 public class PracticeFormTest extends TestBase {
     TestData testData = new TestData();
 
     @Test
+    @DisplayName("Проверка успешной регистрации со всеми полями")
     void successfulRegistrationTest() {
+        //SelenideLogger.addListener("allure", new AllureSelenide());
         registrationPage.openPage();
         registrationPage
                 .setFirstName(testData.firstName)
@@ -44,6 +47,7 @@ public class PracticeFormTest extends TestBase {
     }
 
     @Test
+    @DisplayName("Проверка регистрации с заполненными обязательными полями")
     void requiredFieldsFormTest() {
         registrationPage.openPage();
         registrationPage
@@ -60,14 +64,16 @@ public class PracticeFormTest extends TestBase {
                         MOBILE, testData.phoneNumber));
     }
 
+
     @Test
+    @DisplayName("Проверка регистрации с некорректным телефоном")
     void invalidPhoneRegistrationTest() {
         registrationPage.openPage();
         registrationPage
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
                 .setGender(testData.gender)
-                .setUserNumber("71234567md")
+                .setUserNumber(testData.invalidPhoneNumber + testData.randomString)
                 .clickSubmitButton()
 
                 .checkTitleMissing();

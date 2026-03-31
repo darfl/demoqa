@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import enums.ResultTableEnums;
+import io.qameta.allure.Step;
 import pages.components.CalendarComponent;
 import pages.components.ResultTableComponent;
 
@@ -37,6 +38,7 @@ public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
     ResultTableComponent resultTableComponent = new ResultTableComponent();
 
+    @Step("openPage")
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
@@ -45,63 +47,75 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("setFirstName")
     public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
         return new RegistrationPage();
     }
 
+    @Step("setLastName")
     public RegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
 
+    @Step("setEmail")
     public RegistrationPage setEmail(String value) {
         userEmailInput.setValue(value);
         return this;
     }
 
+    @Step("setGender")
     public RegistrationPage setGender(String value) {
         genderWrapper.$(byText(value)).click();
         return this;
     }
 
+    @Step("setUserNumber")
     public RegistrationPage setUserNumber(String value) {
         userNumberInput.setValue(value);
         return this;
     }
 
+    @Step("setDateOfBirth")
     public RegistrationPage setDateOfBirth(String day, String month, String year) {
         calendarInput.click();
         calendarComponent.setDate(day, month, year);
         return this;
     }
 
+    @Step("setSubjectsInput")
     public RegistrationPage setSubjectsInput(String value) {
         subjectsInput.setValue(value).pressEnter();
         return this;
     }
 
+    @Step("setHobbies")
     public RegistrationPage setHobbies(String value) {
         hobbiesWrapper.$(byText(value)).click();
         return this;
     }
 
+    @Step("uploadPicture")
     public RegistrationPage uploadPicture(String value) {
         uploadPicture.uploadFromClasspath("img/" + value);
         return this;
     }
 
+    @Step("setCurrentAddress")
     public RegistrationPage setCurrentAddress(String value) {
         submitButton.scrollTo();
         currentAddress.setValue(value);
         return this;
     }
 
+    @Step("setState {0}")
     public RegistrationPage setState(String value) {
         stateList.setValue(value).pressEnter();
         return this;
     }
 
+    @Step("setCity {0}")
     public RegistrationPage setCity(String value) {
         cityList.setValue(value).pressEnter();
         return this;

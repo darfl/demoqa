@@ -1,8 +1,5 @@
 package pages.components;
 
-import pages.RegistrationPage;
-import utils.TestData;
-
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
