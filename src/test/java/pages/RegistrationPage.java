@@ -38,7 +38,7 @@ public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
     ResultTableComponent resultTableComponent = new ResultTableComponent();
 
-    @Step("openPage")
+    @Step("Открыть страницу /automation-practice-form и скрыть footer")
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
@@ -47,80 +47,80 @@ public class RegistrationPage {
         return this;
     }
 
-    @Step("setFirstName")
+    @Step("Ввести имя")
     public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
         return new RegistrationPage();
     }
 
-    @Step("setLastName")
+    @Step("Ввести фамилию")
     public RegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
 
-    @Step("setEmail")
+    @Step("Ввести email")
     public RegistrationPage setEmail(String value) {
         userEmailInput.setValue(value);
         return this;
     }
 
-    @Step("setGender")
+    @Step("Указать пол")
     public RegistrationPage setGender(String value) {
         genderWrapper.$(byText(value)).click();
         return this;
     }
 
-    @Step("setUserNumber")
+    @Step("Указать номер телефона")
     public RegistrationPage setUserNumber(String value) {
         userNumberInput.setValue(value);
         return this;
     }
 
-    @Step("setDateOfBirth")
+    @Step("Указать дату рождения")
     public RegistrationPage setDateOfBirth(String day, String month, String year) {
         calendarInput.click();
         calendarComponent.setDate(day, month, year);
         return this;
     }
 
-    @Step("setSubjectsInput")
+    @Step("Выбрать предметы")
     public RegistrationPage setSubjectsInput(String value) {
         subjectsInput.setValue(value).pressEnter();
         return this;
     }
 
-    @Step("setHobbies")
+    @Step("Выбрать хобби")
     public RegistrationPage setHobbies(String value) {
         hobbiesWrapper.$(byText(value)).click();
         return this;
     }
 
-    @Step("uploadPicture")
+    @Step("Загрузить фото")
     public RegistrationPage uploadPicture(String value) {
         uploadPicture.uploadFromClasspath("img/" + value);
         return this;
     }
 
-    @Step("setCurrentAddress")
+    @Step("Указать адрес")
     public RegistrationPage setCurrentAddress(String value) {
         submitButton.scrollTo();
         currentAddress.setValue(value);
         return this;
     }
 
-    @Step("setState {0}")
+    @Step("Выбрать штат {0}")
     public RegistrationPage setState(String value) {
         stateList.setValue(value).pressEnter();
         return this;
     }
 
-    @Step("setCity {0}")
+    @Step("Выбрать город {0}")
     public RegistrationPage setCity(String value) {
         cityList.setValue(value).pressEnter();
         return this;
     }
-
+    @Step("Нажать кнопку submit")
     public RegistrationPage clickSubmitButton() {
         //submitButton.scrollTo();
         actions().moveToElement($(submitButton)).perform();
@@ -130,17 +130,18 @@ public class RegistrationPage {
     }
 
 
+    @Step("Проверить наличие заголовка таблицы с введенными данными")
     public RegistrationPage checkResultTitle() {
         resultTableComponent.checkTitle();
         return this;
     }
 
-
+    @Step("Проверить содержание таблицы с введенными данными")
     public RegistrationPage checkResultTable(Map<ResultTableEnums, String> results) {
         results.forEach((key, value) -> resultTableComponent.checkTable(key, value));
         return this;
     }
-
+    @Step("Проверить отсутствие таблицы с введенными данными")
     public RegistrationPage checkTitleMissing() {
         resultTableComponent.checkTitleMissing() ;
         return this;

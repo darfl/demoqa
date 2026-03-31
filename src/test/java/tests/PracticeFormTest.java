@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import utils.TestData;
 
@@ -8,11 +9,13 @@ import java.util.Map;
 
 import static enums.ResultTableEnums.*;
 
+@Tag("regression")
 @DisplayName("Регистрация")
 public class PracticeFormTest extends TestBase {
     TestData testData = new TestData();
 
     @Test
+    @Tag("positive")
     @DisplayName("Проверка успешной регистрации со всеми полями")
     void successfulRegistrationTest() {
         //SelenideLogger.addListener("allure", new AllureSelenide());
@@ -66,6 +69,7 @@ public class PracticeFormTest extends TestBase {
 
 
     @Test
+    @Tag("negative")
     @DisplayName("Проверка регистрации с некорректным телефоном")
     void invalidPhoneRegistrationTest() {
         registrationPage.openPage();
