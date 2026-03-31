@@ -18,8 +18,6 @@ public class PracticeFormTest extends TestBase {
     @Tag("positive")
     @DisplayName("Проверка успешной регистрации со всеми полями")
     void successfulRegistrationTest() {
-        //SelenideLogger.addListener("allure", new AllureSelenide());
-        registrationPage.openPage();
         registrationPage
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
@@ -52,7 +50,6 @@ public class PracticeFormTest extends TestBase {
     @Test
     @DisplayName("Проверка регистрации с заполненными обязательными полями")
     void requiredFieldsFormTest() {
-        registrationPage.openPage();
         registrationPage
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
@@ -67,12 +64,10 @@ public class PracticeFormTest extends TestBase {
                         MOBILE, testData.phoneNumber));
     }
 
-
     @Test
     @Tag("negative")
     @DisplayName("Проверка регистрации с некорректным телефоном")
     void invalidPhoneRegistrationTest() {
-        registrationPage.openPage();
         registrationPage
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
