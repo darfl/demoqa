@@ -16,6 +16,8 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
         Configuration.headless = true;
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("version", "122");
     }
 
     @AfterEach
