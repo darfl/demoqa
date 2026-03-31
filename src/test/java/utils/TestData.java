@@ -7,18 +7,19 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TestData {
-    private static Faker faker = new Faker(new Locale("en-GB"));
+    private static final Faker faker = new Faker(new Locale("en-GB"));
 
     //public String firstName = getRandomString(10);
     //public String lastName = getRandomString(10);
     //public String userEmail = getRandomEmail();
     //public String streetAddress = getRandomAddress();
+
     public String firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
             userEmail = faker.internet().emailAddress(),
             gender = getRandomGender(),
-            phoneNumber = getRandomPhoneNumber(10),
-            invalidPhoneNumber = getRandomPhoneNumber(8),
+            phoneNumber = getRandomPhoneNumber(),
+            invalidPhoneNumber = "99999999",
             randomString = getRandomString(2),
             day = getRandomDay(),
             month = getRandomMonth(),
@@ -44,7 +45,7 @@ public class TestData {
         return getRandomString(10) + "@gmail.com";
     }*/
 
-    public String getRandomPhoneNumber(int len) {
+    public String getRandomPhoneNumber() {
         /*String AB = "0123456789";
         SecureRandom rnd = new SecureRandom();
         StringBuilder sb  = new StringBuilder();
@@ -70,7 +71,6 @@ public class TestData {
     public String getRandomYear() {
         return String.valueOf(faker.number().numberBetween(1950, 2012));
     }
-
 
     public int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);

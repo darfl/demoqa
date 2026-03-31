@@ -34,7 +34,6 @@ public class RegistrationPage {
             visibleHeader = $("#example-modal-sizes-title-lg"),
             resultTable = $(".table-responsive");
 
-
     CalendarComponent calendarComponent = new CalendarComponent();
     ResultTableComponent resultTableComponent = new ResultTableComponent();
 
@@ -122,13 +121,12 @@ public class RegistrationPage {
     }
     @Step("Нажать кнопку submit")
     public RegistrationPage clickSubmitButton() {
-        //submitButton.scrollTo();
+        //submitButton.scrollTo(); не сработало
         actions().moveToElement($(submitButton)).perform();
 
         submitButton.click();
         return this;
     }
-
 
     @Step("Проверить наличие заголовка таблицы с введенными данными")
     public RegistrationPage checkResultTitle() {

@@ -13,16 +13,18 @@ import pages.RegistrationPage;
 
 import java.util.Map;
 
+import static com.codeborne.selenide.Configuration.baseUrl;
+
 public class TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
     static void setUpBeforeAll() {
-        Configuration.baseUrl = "https://demoqa.com";
+        baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("version", "128");
         //Configuration.remote = System.getProperty("remoteUrl");
@@ -38,6 +40,7 @@ public class TestBase {
     @BeforeEach
     void setUpBeforeEach() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        registrationPage.openPage();
     }
 
     @AfterEach

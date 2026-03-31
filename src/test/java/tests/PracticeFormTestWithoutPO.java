@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -10,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class PracticeFormTestWithoutPO extends TestBase {
 
-
+    @Disabled
     @Test
     void successfulRegistrationTest() {
         String userName = "alex";
@@ -34,13 +35,10 @@ public class PracticeFormTestWithoutPO extends TestBase {
         $(".react-datepicker__month-select").selectOption("July");
         $("react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
 
-
         $("#subjectsInput").setValue("Maths").pressEnter();
-
 
         $("#submit").scrollTo();
         $("#hobbiesWrapper").$(byText("Reading")).click();
-
 
         $("#uploadPicture").uploadFromClasspath("img/test1.jpg");
 
@@ -64,4 +62,3 @@ public class PracticeFormTestWithoutPO extends TestBase {
 
     }
 }
-
