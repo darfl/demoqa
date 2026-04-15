@@ -46,7 +46,7 @@ public class AllureAttachments {
 
     public static URL getVideoUrl() {
         String videoUrl = "https://" + System.getProperty(
-                "videoUrl", "selenoid.autotests.cloud") + "/video/" + sessionId() + ".mp4";
+                "remoteUrl", "selenoid.autotests.cloud") + "/video/" + sessionId() + ".mp4";
         try {
             return new URL(videoUrl);
         } catch (MalformedURLException e) {
@@ -54,4 +54,5 @@ public class AllureAttachments {
         }
         return null;
     }
-}
+} //-DremoteUrl=https://user1:1234@selenoid.autotests.cloud/wd/hub -DvideoUrl=user1:1234@selenoid.autotests.cloud
+//./gradlew clean test ${REMOTE_DRIVER_URL}
