@@ -54,5 +54,4 @@ public class AllureAttachments {
         }
         return null;
     }
-} //-DremoteUrl=https://user1:1234@selenoid.autotests.cloud/wd/hub -DvideoUrl=user1:1234@selenoid.autotests.cloud
-//./gradlew clean test ${REMOTE_DRIVER_URL}
+}
