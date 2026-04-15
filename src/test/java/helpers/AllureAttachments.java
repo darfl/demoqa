@@ -46,7 +46,7 @@ public class AllureAttachments {
 
     public static URL getVideoUrl() {
         String videoUrl = "https://" + System.getProperty(
-                "remoteUrl", "selenoid.autotests.cloud") + "/video/" + sessionId() + ".mp4";
+                "videoUrl", "selenoid.autotests.cloud") + "/video/" + sessionId() + ".mp4";
         try {
             return new URL(videoUrl);
         } catch (MalformedURLException e) {
