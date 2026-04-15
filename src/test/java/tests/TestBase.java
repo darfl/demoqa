@@ -13,20 +13,18 @@ import pages.RegistrationPage;
 
 import java.util.Map;
 
-import static com.codeborne.selenide.Configuration.baseUrl;
-
 public class TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
     static void setUpBeforeAll() {
-        baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.headless = false;
+        Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("version", "128");
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.headless = false;
         //Configuration.remote = System.getProperty("remoteUrl");
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         DesiredCapabilities capabilities = new DesiredCapabilities();
