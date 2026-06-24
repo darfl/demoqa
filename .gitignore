@@ -11,6 +11,12 @@ build/
 
 ### Gradle ###
 .gradle
+gradle-wrapper.jar
+gradle-wrapper.properties
 
 ### Logs ###
 *.log
+
+### Project ###
+bin/
+notifications/
